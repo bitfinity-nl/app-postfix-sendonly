@@ -1,0 +1,32 @@
+---
+  # Title: app-postfix-sendonly
+  #
+  # Author: Luc Rutten
+  # File: tasks/main.yml
+  #
+  # Description:
+  #   Send-only SMTP server for local applications,
+  #   that relay to an internal smarthost.
+
+  - name: "Install applications"
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - mailutils
+
+  - name: "Transfer files to /etc/postfix/" 
+    template:
+      src: "{{ item.src }}"  
+      dest: "{{ item.dest }}"
+      backup: yes
+    with_items:
+      - { src: 'main.cf.j2', dest: '/etc/postfix/main.cf' }
+
+  - name: "Restart postfix"
+    systemd:
+      name: postfix
+      state: restarted
+      daemon_reload: yes
+      enabled: yes
