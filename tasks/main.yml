@@ -10,10 +10,11 @@
 
   - name: "Install applications"
     apt:
-      name: "{{ item }}"
+      name: "{{ packages }}"
       state: present
       update_cache: yes
-    with_items:
+    vars:
+      packages:
       - mailutils
 
   - name: "Transfer files to /etc/postfix/" 
