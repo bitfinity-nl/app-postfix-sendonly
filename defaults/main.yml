@@ -1,12 +1,16 @@
 ---
-  # Title: app-postfix-sendonly
-  #
-  # Author: Luc Rutten
-  # File: defaults/main.yml
-  #
-  # Description:
-  #   Send-only SMTP server for local applications,
-  #   that relay to an internal smarthost.
+# Title: app-postfix-sendonly
+#
+# Author: Luc Rutten
+# File: defaults/main.yml
+#
+# Description:
+#   Send-only SMTP server for local applications,
+#   that relay to an internal smarthost.
+#
+# Comment:
+#   Change the variable(s) below or override via playbook/group_vars 
+#
 
-  postfix_relay_host : 192.168.0.184
-  postfix_relay_port : 25
+postfix_relay_host : '{{ def_smtp_srv }}'
+postfix_relay_port : '{{ def_smtp_port }}'
